@@ -3,6 +3,7 @@ package umd.mad.p3;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DownloadManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Log.i("Item", parent.getItemAtPosition(position).toString());
+        Intent intent = new Intent(this, )
     }
 
     @Override
