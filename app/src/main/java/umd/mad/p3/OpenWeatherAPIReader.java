@@ -24,6 +24,8 @@ public class OpenWeatherAPIReader {
     private JSONObject lastObject;
     private JsonReader jsonReader;
 
+    private JSONObject main;
+
 
 
 
@@ -37,7 +39,7 @@ public class OpenWeatherAPIReader {
 
     public void setCity(String city) { // we built this city on rock and roll
         this.city = city;
-
+        RequestJSONObject();
     }
 
     private void RequestJSONObject() {
@@ -63,6 +65,7 @@ public class OpenWeatherAPIReader {
                                     Log.i("Main", response.getJSONObject("main").toString());
                                     Log.i("Temp", (Double.toString(response.getJSONObject("main").getDouble("temp"))));
                                     lastObject = response;
+                                    main = response.getJSONObject("main");
 
                                 }
                                 catch (JSONException e) {
@@ -80,6 +83,7 @@ public class OpenWeatherAPIReader {
                             }
                         }
                 );
+
         // add request to the queue
         requestQueue.add(jsonObjectRequest); // actually processes the request for json data
 
@@ -88,21 +92,21 @@ public class OpenWeatherAPIReader {
     public String getTemperature() throws JSONException {
         String temperature;
 
-        temperature = Double.toString(lastObject.getJSONObject("main").getDouble("temp"));
+        temperature = Double.toString(main.getDouble("temp"));
         return temperature;
     }
 
     public String getTemperatureLow() throws JSONException {
         String low;
 
-        low = Double.toString(lastObject.getJSONObject("main").getDouble("temp_min"));
+        low = Double.toString(main.getDouble("temp_min"));
         return low;
     }
 
     public String getTemperatureHigh() throws JSONException {
         String high;
 
-        high = Double.toString(lastObject.getJSONObject("main").getDouble("temp_max"));
+        high = Double.toString(main.getDouble("temp_max"));
         return high;
     }
 
