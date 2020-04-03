@@ -57,8 +57,17 @@ public class OpenWeatherAPIReader {
                             @Override
                             public void onResponse(JSONObject response) { // I guess I'm supposed to capture the request here somehow
 
-                                Log.i("JSON response", response.toString());
-                                lastObject = response;
+                                try {
+
+                                    Log.i("JSON response", response.toString());
+                                    Log.i("Main", response.getJSONObject("main").toString());
+                                    Log.i("Temp", (Double.toString(response.getJSONObject("main").getDouble("temp"))));
+                                    lastObject = response;
+
+                                }
+                                catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
 
                             }
                         },
@@ -77,10 +86,24 @@ public class OpenWeatherAPIReader {
     }
 
     public String getTemperature() throws JSONException {
+        String temperature;
 
-        assert lastObject != null;
-        return lastObject.get("temp").toString();
+        temperature = Double.toString(lastObject.getJSONObject("main").getDouble("temp"));
+        return temperature;
+    }
 
+    public String getTemperatureLow() throws JSONException {
+        String low;
+
+        low = Double.toString(lastObject.getJSONObject("main").getDouble("temp_min"));
+        return low;
+    }
+
+    public String getTemperatureHigh() throws JSONException {
+        String high;
+
+        high = Double.toString(lastObject.getJSONObject("main").getDouble("temp_max"));
+        return high;
     }
 
 }
