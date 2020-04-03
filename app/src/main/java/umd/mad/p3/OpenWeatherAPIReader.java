@@ -11,15 +11,17 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class OpenWeatherAPIReader {
 
-    private String api_url_format = "api.openweathermap.org/data/2.5/weather?q=%s&appid=%s";
+    private String api_url_format = "https://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s";
     private String api_key = "d45484139b3f7d8c333a5a6742492183";
     private Context context;
     private String city;
     private RequestQueue requestQueue;
+    private JSONObject lastObject;
     private JsonReader jsonReader;
 
 
@@ -30,49 +32,54 @@ public class OpenWeatherAPIReader {
         this.context = context;
         this.city = context.getResources().getStringArray(R.array.cities)[0];
 
+        RequestJSONObject();
     }
 
     public void setCity(String city) { // we built this city on rock and roll
         this.city = city;
+
     }
 
-    private void RequestJSONObject(String url) {
+    private void RequestJSONObject() {
+
+        String api_url = String.format(api_url_format, city, api_key); // constructs the final url
+
         // instantiate the request queue
-        requestQueue = Volley.newRequestQueue(context);
+        requestQueue = Volley.newRequestQueue(context); // used to fulfill requests
 
         // create object request
-        JsonObjectRequest jsonObjectRequest =
+        JsonObjectRequest jsonObjectRequest = // defines the kind of request we want to do and how to handle it
                 new JsonObjectRequest(
                         Request.Method.GET, // the request method
-                        url, // the URL
+                        api_url, // the URL
                         null,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) { // I guess I'm supposed to capture the request here somehow
+
                                 Log.i("JSON response", response.toString());
+                                lastObject = response;
+
                             }
                         },
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
+
                                 Log.e("Volley Error", error.toString());
+
                             }
                         }
                 );
         // add request to the queue
-        requestQueue.add(jsonObjectRequest);
+        requestQueue.add(jsonObjectRequest); // actually processes the request for json data
 
     }
 
-    public String getTemperature() {
-        String temperature = "";
+    public String getTemperature() throws JSONException {
 
-
-
-        return temperature;
-    }
-
-    public String getAmbientTemperature() {
+        assert lastObject != null;
+        return lastObject.get("temp").toString();
 
     }
 
