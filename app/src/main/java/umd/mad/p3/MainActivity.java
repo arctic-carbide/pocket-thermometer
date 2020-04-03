@@ -47,8 +47,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String city = parent.getItemAtPosition(position).toString();
+        Intent intent = new Intent(this, DisplayWeatherInfoActivity.class);
         Log.i("Item", parent.getItemAtPosition(position).toString());
-        Intent intent = new Intent(this, )
+
+        intent.putExtra("city_name", city);
+
+        startActivity(intent);
     }
 
     @Override

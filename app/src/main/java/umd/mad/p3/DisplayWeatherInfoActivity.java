@@ -1,7 +1,14 @@
 package umd.mad.p3;
 
-import android.app.Activity;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class DisplayWeatherInfoActivity extends Activity {
+import android.os.Bundle;
 
+public class DisplayWeatherInfoActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_display_weather_info);
+    }
 }
