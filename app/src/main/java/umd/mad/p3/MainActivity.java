@@ -25,7 +25,6 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    OpenWeatherAPIReader reader;
     Spinner spinner;
 
     @Override
@@ -33,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        reader = new OpenWeatherAPIReader(this);
         spinner = findViewById(R.id.cities);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
