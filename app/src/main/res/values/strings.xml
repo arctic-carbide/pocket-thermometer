@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">OpenWeather App</string>
+    <string name="celsius">\u2103</string>
+    <string name="fahrenheit">\u2109</string>
+
+    <string name="default_city">Error</string>
+    <string name="default_temperature">E</string>
+
 
     <string-array name="cities">
         <item>Detroit</item>

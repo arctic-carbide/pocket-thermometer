@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DisplayWeatherInfoActivity">
+
+    <TextView
+        android:id="@+id/cityName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="@string/default_city"
+        android:textSize="@dimen/text_size"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="City Name" />
+
+    <TextView
+        android:id="@+id/currentTemperatureUnit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="@string/fahrenheit"
+        android:textSize="@dimen/text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/currentTemperatureValue"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/currentTemperatureValue"
+        app:layout_constraintTop_toTopOf="@+id/currentTemperatureValue" />
+
+    <TextView
+        android:id="@+id/currentTemperatureValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/default_temperature"
+        android:textSize="@dimen/text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cityName"
+        tools:text="48" />
+
+    <TextView
+        android:id="@+id/ambientTemperatureUnit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="@string/fahrenheit"
+        android:textSize="@dimen/subtext_size"
+        app:layout_constraintBottom_toBottomOf="@+id/ambientTemperatureValue"
+        app:layout_constraintStart_toEndOf="@+id/ambientTemperatureValue"
+        app:layout_constraintTop_toTopOf="@+id/ambientTemperatureValue" />
+
+    <TextView
+        android:id="@+id/ambientTemperatureValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/default_temperature"
+        android:textSize="@dimen/subtext_size"
+        app:layout_constraintBottom_toBottomOf="@+id/ambientTempMessage"
+        app:layout_constraintStart_toEndOf="@+id/ambientTempMessage"
+        app:layout_constraintTop_toTopOf="@+id/ambientTempMessage"
+        tools:text="24" />
+
+    <TextView
+        android:id="@+id/ambientTempMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Feels like: "
+        android:textSize="@dimen/subtext_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currentTemperatureValue" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

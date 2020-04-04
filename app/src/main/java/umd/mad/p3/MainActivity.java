@@ -3,6 +3,7 @@ package umd.mad.p3;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DownloadManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,7 +25,6 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    OpenWeatherAPIReader reader;
     Spinner spinner;
 
     @Override
@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        reader = new OpenWeatherAPIReader(this);
         spinner = findViewById(R.id.cities);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
@@ -46,7 +45,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String city = parent.getItemAtPosition(position).toString();
+        Intent intent = new Intent(this, DisplayWeatherInfoActivity.class);
         Log.i("Item", parent.getItemAtPosition(position).toString());
+
+        intent.putExtra("city_name", city);
+
+        startActivity(intent);
     }
 
     @Override
