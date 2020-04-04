@@ -116,4 +116,8 @@ public class OpenWeatherAPIReader {
         return high;
     }
 
+    public Object getAttribute(String name) throws JSONException {
+        return response.get(name);
+    }
+
 }
