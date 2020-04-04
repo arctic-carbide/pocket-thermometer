@@ -15,8 +15,8 @@ public class DisplayWeatherInfoActivity extends AppCompatActivity implements Req
 
     OpenWeatherAPIReader weather;
     TextView cityName;
-    TextView currentTemperatureValue;
     TextView ambientTemperatureValue;
+    TextView feelsLikeTemperatureValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +32,8 @@ public class DisplayWeatherInfoActivity extends AppCompatActivity implements Req
         weather.prepareRequest();
 
         cityName = findViewById(R.id.cityName);
-        currentTemperatureValue = findViewById(R.id.currentTemperatureValue);
         ambientTemperatureValue = findViewById(R.id.ambientTemperatureValue);
+        feelsLikeTemperatureValue = findViewById(R.id.feelsLikeTemperatureValue);
 
         cityName.setText(message);
 
@@ -41,8 +41,8 @@ public class DisplayWeatherInfoActivity extends AppCompatActivity implements Req
 
     private void updateTemperatureValues() {
         try {
-            currentTemperatureValue.setText(weather.getTemperature());
-            ambientTemperatureValue.setText(weather.getTemperatureFeel());
+            ambientTemperatureValue.setText(weather.getAmbientTemperature()); // the current temperature in the area
+            feelsLikeTemperatureValue.setText(weather.getTemperatureFeel()); // what the temperature feels like in the area
         }
         catch (JSONException e) {
             e.printStackTrace();

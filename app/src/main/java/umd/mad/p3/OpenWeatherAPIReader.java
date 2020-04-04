@@ -95,7 +95,7 @@ public class OpenWeatherAPIReader {
         requestQueue.addRequestFinishedListener(listener);
     }
 
-    public String getTemperature() throws JSONException {
+    public String getAmbientTemperature() throws JSONException {
         String temperature;
 
         temperature = Double.toString(response.getDouble("temp"));
