@@ -116,6 +116,13 @@ public class OpenWeatherAPIReader {
         return high;
     }
 
+    public String getTemperatureFeel() throws JSONException {
+        String feel;
+
+        feel = Double.toString(response.getDouble("feels_like"));
+        return feel;
+    }
+
     public Object getAttribute(String name) throws JSONException {
         return response.get(name);
     }

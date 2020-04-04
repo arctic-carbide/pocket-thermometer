@@ -42,7 +42,7 @@ public class DisplayWeatherInfoActivity extends AppCompatActivity implements Req
     private void updateTemperatureValues() {
         try {
             currentTemperatureValue.setText(weather.getTemperature());
-            ambientTemperatureValue.setText(weather.getTemperatureHigh());
+            ambientTemperatureValue.setText(weather.getTemperatureFeel());
         }
         catch (JSONException e) {
             e.printStackTrace();
