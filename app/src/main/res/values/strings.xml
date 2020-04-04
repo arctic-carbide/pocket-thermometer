@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">OpenWeather App</string>
+    <string name="celsius">\u2103</string>
+    <string name="fahrenheit">\u2109</string>
 
     <string-array name="cities">
         <item>Detroit</item>
