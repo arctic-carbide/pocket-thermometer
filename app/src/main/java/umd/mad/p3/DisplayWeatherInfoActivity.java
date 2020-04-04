@@ -1,18 +1,17 @@
 package umd.mad.p3;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.asynclayoutinflater.view.AsyncLayoutInflater;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 
 import org.json.JSONException;
 
-public class DisplayWeatherInfoActivity extends AppCompatActivity implements AsyncLayoutInflater.OnInflateFinishedListener {
+public class DisplayWeatherInfoActivity extends AppCompatActivity implements RequestQueue.RequestFinishedListener {
 
     OpenWeatherAPIReader weather;
     TextView cityName;
@@ -24,18 +23,21 @@ public class DisplayWeatherInfoActivity extends AppCompatActivity implements Asy
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_weather_info);
 
-        weather = new OpenWeatherAPIReader(this);
+        Intent starter = getIntent();
+        String message = starter.getStringExtra("city_name");
+
+        weather = new OpenWeatherAPIReader(this, message);
+        weather.addOnRequestFinishedListener(this);
 
         cityName = findViewById(R.id.cityName);
         currentTemperatureValue = findViewById(R.id.currentTemperatureValue);
         ambientTemperatureValue = findViewById(R.id.ambientTemperatureValue);
 
+        cityName.setText(message);
 
     }
 
-    @Override
-    public void onInflateFinished(@NonNull View view, int resid, @Nullable ViewGroup parent) {
-
+    private void updateTemperatureValues() {
         try {
             currentTemperatureValue.setText(weather.getTemperature());
             ambientTemperatureValue.setText(weather.getTemperatureHigh());
@@ -43,6 +45,10 @@ public class DisplayWeatherInfoActivity extends AppCompatActivity implements Asy
         catch (JSONException e) {
             e.printStackTrace();
         }
+    }
 
+    @Override
+    public void onRequestFinished(Request request) {
+        updateTemperatureValues();
     }
 }

@@ -29,10 +29,10 @@ public class OpenWeatherAPIReader {
 
 
 
-    public OpenWeatherAPIReader(Context context) {
+    public OpenWeatherAPIReader(Context context, String city) {
 
         this.context = context;
-        this.city = context.getResources().getStringArray(R.array.cities)[0];
+        this.city = city;
 
         RequestJSONObject();
     }
@@ -87,6 +87,10 @@ public class OpenWeatherAPIReader {
         // add request to the queue
         requestQueue.add(jsonObjectRequest); // actually processes the request for json data
 
+    }
+
+    public void addOnRequestFinishedListener(RequestQueue.RequestFinishedListener listener) {
+        requestQueue.addRequestFinishedListener(listener);
     }
 
     public String getTemperature() throws JSONException {
