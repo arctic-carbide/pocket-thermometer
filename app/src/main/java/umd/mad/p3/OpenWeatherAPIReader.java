@@ -95,7 +95,7 @@ public class OpenWeatherAPIReader {
         requestQueue.addRequestFinishedListener(listener);
     }
 
-    public String getTemperature() throws JSONException {
+    public String getAmbientTemperature() throws JSONException {
         String temperature;
 
         temperature = Double.toString(response.getDouble("temp"));
@@ -114,6 +114,17 @@ public class OpenWeatherAPIReader {
 
         high = Double.toString(response.getDouble("temp_max"));
         return high;
+    }
+
+    public String getTemperatureFeel() throws JSONException {
+        String feel;
+
+        feel = Double.toString(response.getDouble("feels_like"));
+        return feel;
+    }
+
+    public Object getAttribute(String name) throws JSONException {
+        return response.get(name);
     }
 
 }

@@ -26,7 +26,7 @@ import org.json.JSONObject;
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     Spinner spinner;
-    boolean firstRun = true;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this, R.array.cities,
                 android.R.layout.simple_spinner_item
+                // R.layout.item_spinner
         );
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if (position != 0) { // display weather info
             String city = parent.getItemAtPosition(position).toString();
-            Intent intent = new Intent(this, DisplayWeatherInfoActivity.class);
+            intent = new Intent(this, DisplayWeatherInfoActivity.class);
             Log.i("Item", parent.getItemAtPosition(position).toString());
 
             intent.putExtra("city_name", city);
@@ -59,6 +60,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
+        // startActivity(intent);
     }
 }
