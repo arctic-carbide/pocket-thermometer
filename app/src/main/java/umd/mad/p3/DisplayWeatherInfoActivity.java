@@ -27,7 +27,9 @@ public class DisplayWeatherInfoActivity extends AppCompatActivity implements Req
         String message = starter.getStringExtra("city_name");
 
         weather = new OpenWeatherAPIReader(this, message);
+        weather.setUnits(OpenWeatherAPIReader.Units.FAHRENHEIT);
         weather.addOnRequestFinishedListener(this);
+        weather.prepareRequest();
 
         cityName = findViewById(R.id.cityName);
         currentTemperatureValue = findViewById(R.id.currentTemperatureValue);

@@ -1,8 +1,9 @@
 package umd.mad.p3;
 
 import android.content.Context;
-import android.util.JsonReader;
 import android.util.Log;
+
+import androidx.annotation.StringRes;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -16,38 +17,40 @@ import org.json.JSONObject;
 
 public class OpenWeatherAPIReader {
 
-    private String api_url_format = "https://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s";
+    private String api_url_format = "https://api.openweathermap.org/data/2.5/weather?q=%s&units=%s&appid=%s";
     private String api_key = "d45484139b3f7d8c333a5a6742492183";
-    private Context context;
     private String city;
     private RequestQueue requestQueue;
-    private JSONObject lastObject;
-    private JsonReader jsonReader;
-
-    private JSONObject main;
+    private String units = Units.KELVIN;
+    private JSONObject response;
 
 
+    public static class Units {
+        public static final String FAHRENHEIT = "imperial";
+        public static final String CELSIUS = "metric";
+        public static final String KELVIN = "standard";
+    }
 
 
     public OpenWeatherAPIReader(Context context, String city) {
 
-        this.context = context;
+        // instantiate the request queue
+        requestQueue = Volley.newRequestQueue(context); // used to fulfill requests
         this.city = city;
 
-        RequestJSONObject();
     }
 
     public void setCity(String city) { // we built this city on rock and roll
         this.city = city;
-        RequestJSONObject();
     }
 
-    private void RequestJSONObject() {
+    public void setUnits(String units) {
+        this.units = units;
+    }
 
-        String api_url = String.format(api_url_format, city, api_key); // constructs the final url
+    public void prepareRequest() {
 
-        // instantiate the request queue
-        requestQueue = Volley.newRequestQueue(context); // used to fulfill requests
+        String api_url = String.format(api_url_format, city, units, api_key); // constructs the final url
 
         // create object request
         JsonObjectRequest jsonObjectRequest = // defines the kind of request we want to do and how to handle it
@@ -64,8 +67,7 @@ public class OpenWeatherAPIReader {
                                     Log.i("JSON response", response.toString());
                                     Log.i("Main", response.getJSONObject("main").toString());
                                     Log.i("Temp", (Double.toString(response.getJSONObject("main").getDouble("temp"))));
-                                    lastObject = response;
-                                    main = response.getJSONObject("main");
+                                    OpenWeatherAPIReader.this.response = response.getJSONObject("main");
 
                                 }
                                 catch (JSONException e) {
@@ -96,21 +98,21 @@ public class OpenWeatherAPIReader {
     public String getTemperature() throws JSONException {
         String temperature;
 
-        temperature = Double.toString(main.getDouble("temp"));
+        temperature = Double.toString(response.getDouble("temp"));
         return temperature;
     }
 
     public String getTemperatureLow() throws JSONException {
         String low;
 
-        low = Double.toString(main.getDouble("temp_min"));
+        low = Double.toString(response.getDouble("temp_min"));
         return low;
     }
 
     public String getTemperatureHigh() throws JSONException {
         String high;
 
-        high = Double.toString(main.getDouble("temp_max"));
+        high = Double.toString(response.getDouble("temp_max"));
         return high;
     }
 

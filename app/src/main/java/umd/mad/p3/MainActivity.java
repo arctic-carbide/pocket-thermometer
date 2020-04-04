@@ -26,6 +26,7 @@ import org.json.JSONObject;
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     Spinner spinner;
+    boolean firstRun = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +46,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String city = parent.getItemAtPosition(position).toString();
-        Intent intent = new Intent(this, DisplayWeatherInfoActivity.class);
-        Log.i("Item", parent.getItemAtPosition(position).toString());
+        if (position != 0) { // display weather info
+            String city = parent.getItemAtPosition(position).toString();
+            Intent intent = new Intent(this, DisplayWeatherInfoActivity.class);
+            Log.i("Item", parent.getItemAtPosition(position).toString());
 
-        intent.putExtra("city_name", city);
+            intent.putExtra("city_name", city);
 
-        startActivity(intent);
+            startActivity(intent);
+        }
     }
 
     @Override
