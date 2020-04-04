@@ -5,14 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import org.json.JSONException;
+
 public class DisplayWeatherInfoActivity extends AppCompatActivity {
 
     OpenWeatherAPIReader weather;
     TextView cityName;
     TextView currentTemperatureValue;
-    TextView currentTemperatureUnitSymbol;
     TextView ambientTemperatureValue;
-    TextView ambientTemperatureSymbol;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,11 +23,15 @@ public class DisplayWeatherInfoActivity extends AppCompatActivity {
 
         cityName = findViewById(R.id.cityName);
         currentTemperatureValue = findViewById(R.id.currentTemperatureValue);
-        currentTemperatureUnitSymbol = findViewById(R.id.currentTemperatureUnit);
         ambientTemperatureValue = findViewById(R.id.ambientTemperatureValue);
-        ambientTemperatureSymbol = findViewById(R.id.ambientTemperatureUnit);
 
-
+        try {
+            currentTemperatureValue.setText(weather.getTemperature());
+            ambientTemperatureValue.setText(weather.getTemperatureHigh());
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
 }
